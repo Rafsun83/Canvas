@@ -7,11 +7,23 @@ import { increment } from '../../service/slice/counter';
 
 const Canvas = () => {
     //const [canvas, setCanvas] = useState('') 
-    const value = useSelector((state) => state.counter.value)
+    // const value = useSelector((state) => state.counter.value)
     const formdata = useSelector((state) =>state.formData.formdata)
-   
-   
     console.log("form data canvas", formdata)
+
+    var c = document.getElementById("myCanvas");
+    // var btnSave = document.getElementById('btnSave');
+    const handlesave =()=>{        
+        var image = c.toDataURL("image/png");
+        var anchor = document.createElement('a');
+        anchor.setAttribute('download', 'myFilename.png');
+        anchor.setAttribute('href', image);
+        anchor.click();
+    }
+
+
+
+
     
     const drawShape = () => {
         return (
@@ -25,12 +37,13 @@ const Canvas = () => {
                     ctx.fillRect(item.xaxis, item.yaxis, item.width, item.height);
                     }
                     else if(item.shapeName==='Circle'){
-                        var b = document.getElementById("myCanvas");
+                        var b = document.getElementById("myCanvas");               
                         var cty = b.getContext("2d");
+                        cty.beginPath();
                         cty.fillStyle = item.color;
-                        cty.fill();
                         cty.arc(item.xaxis, item.yaxis, item.radius, item.start, item.end * Math.PI);
-                        cty.stroke();
+                        cty.fill();
+                        
                     }
                     
                    
@@ -57,8 +70,8 @@ const Canvas = () => {
     return (
         <>
             <Box>
-                {/* <Typography>Count:{value}</Typography>
-                <Button onClick={() => dispatch(increment()) } >Increment</Button> */}
+                {/* <Typography>Count:{value}</Typography> */}
+                <Button onClick={handlesave} id="btnSave">Save</Button>
                 <Typography sx={{fontSize:'18px',fontWeight:700,padding:'5px 0px 23px 0px'}}>Untitled Canvas</Typography>
 
                 {/* <Box sx={{border:'1px solid #617D5E',height:'50vh', borderRadius:'6px'}}>
