@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.InputField{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
