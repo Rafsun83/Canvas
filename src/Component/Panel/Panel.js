@@ -1,31 +1,33 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import  Box  from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddShape } from '../../service/slice/addShape';
 import ListGroup from 'react-bootstrap/ListGroup';
+import useAuth from './../../Hooks/useAuth';
+import CropSquareIcon from '@mui/icons-material/CropSquare';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import ChangeHistoryOutlinedIcon from '@mui/icons-material/ChangeHistoryOutlined';
+import RectangleIcon from '@mui/icons-material/Rectangle';
+import CircleIcon from '@mui/icons-material/Circle';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 
-const shape = ["Rectangle", "Circle", "Triangle"];
+const shape = [ "Rectangle", "Circle", "Triangle"];
 
 
 const Panel = () => {
+    const {users} = useAuth()
     const dispatch = useDispatch()
-   
-    const data = useSelector((state) =>state)
     const formdata = useSelector((state) =>state.formData.formdata)
-    // console.log("formdata",formdata);
-
+    console.log("form data", formdata)
     const handleChangeShape = async(item) => {
         await dispatch(AddShape(item))
-    }
-
-    
+    }   
     return (
         <>
         <Dropdown>
-            <Dropdown.Toggle style={{width:'100%',background:'#4DC2E7', color:'white', border:'none'}} variant="success" id="dropdown-basic" 
+            <Dropdown.Toggle  style={{width:'100%',background:'#4DC2E7', color:'white', border:'none'}} variant="success" id="dropdown-basic" 
             >
                 Add Shape
             </Dropdown.Toggle>
@@ -33,39 +35,46 @@ const Panel = () => {
             <Dropdown.Menu style={{width:'100%', background:'#C4C4C4', color:'#FFFFFF'}}>
                     {shape.map((item, i) => (
                     <Dropdown.Item
+                    style={{display:'flex', gap:'3px'}}
                     key={i}
                     as="button"
                     onClick={() => handleChangeShape(item)}
                     >
-
-                    
-                    {item}
-                    
-                    
+                     {item==="Rectangle" && <CropSquareIcon/>}                       
+                     {item==="Circle" && <CircleOutlinedIcon/>}                       
+                     {item==="Triangle" && <ChangeHistoryOutlinedIcon/>}                       
+                    {item}                   
                     </Dropdown.Item>
                 ))}
-
-
             </Dropdown.Menu>
         </Dropdown>
 
 
         <Box sx={{background:'#F0F8EF', borderRadius:'6px', marginTop:'20px', height:'50vh'}}>
             <Typography sx={{fontWeight:700, fontSize:'18px', padding:'20px 0px 20px 0px'}}>Shapes</Typography>
-            {/* <input style={{border:'none', borderRadius:'6px',padding:'5px', opacity:'0.7'}} placeholder="Add a Shape first" ></input> */}
-            <ListGroup style={{textAlign:'left'}}>
-                {
-                  formdata.map((item,i) => (
-                    <ListGroup.Item key={i} disabled>{item.shapeName}</ListGroup.Item>    
-                       
-                    ))
-                    
-                }
-            </ListGroup>
-            
+            <ListGroup style={{textAlign:'left', gap:'10px'}}>
+             {
+                 users?.email ? <>
+                 {
+                    formdata.map((item,i) => (
+                     <ListGroup.Item key={i} style={{display:'flex', gap:'3px'}} disabled>
+                      {item.shapeName==='Rectangle'&& <RectangleIcon sx={{color:item.color}}/>}
+                      {item.shapeName==='Circle'&& <CircleIcon sx={{color:item.color}}/>}
+                      {item.shapeName==='Triangle'&& <ReportProblemIcon sx={{color:item.color}}/>}
+                      
+                      {item.shapeName}
+                      </ListGroup.Item>
+                        
+                      ))                   
+                  }
+                 </> :
+                 <ListGroup.Item  disabled>Add a Shape first</ListGroup.Item> 
+             }
+                
+            </ListGroup>           
         </Box>
         </>
     );
 };
 
-export default Panel;<h1>This is panel</h1>
+export default Panel;

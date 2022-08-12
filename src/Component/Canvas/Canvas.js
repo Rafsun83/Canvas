@@ -2,28 +2,28 @@ import React, { useEffect } from 'react';
 import  Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import  Button from 'react-bootstrap/Button';
-import { useSelector, useDispatch} from 'react-redux';
-import { increment } from '../../service/slice/counter';
+import { useSelector} from 'react-redux';
+
+
+var c = document.getElementById("myCanvas");
+ export const  handlePng = () =>{        
+    var image = c.toDataURL("image/png");
+    var anchor = document.createElement('a');
+    anchor.setAttribute('download', 'myFilename.png');
+    anchor.setAttribute('href', image);
+    anchor.click();
+}
 
 const Canvas = () => {
-    //const [canvas, setCanvas] = useState('') 
-    // const value = useSelector((state) => state.counter.value)
     const formdata = useSelector((state) =>state.formData.formdata)
     console.log("form data canvas", formdata)
 
-    var c = document.getElementById("myCanvas");
-    // var btnSave = document.getElementById('btnSave');
-    const handlesave =()=>{        
-        var image = c.toDataURL("image/png");
-        var anchor = document.createElement('a');
-        anchor.setAttribute('download', 'myFilename.png');
-        anchor.setAttribute('href', image);
-        anchor.click();
+    //Canvas Remove event 
+    const handleRemove = () => {
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
     }
-
-
-
-
     
     const drawShape = () => {
         return (
@@ -44,17 +44,11 @@ const Canvas = () => {
                         cty.arc(item.xaxis, item.yaxis, item.radius, item.start, item.end * Math.PI);
                         cty.fill();
                         
-                    }
-                    
-                   
-                    
+                    }                                      
                 })
             }
           </>
-        )
-
-      
-    
+        )   
     }
 
     useEffect(() => {
@@ -62,27 +56,14 @@ const Canvas = () => {
        
     }, [formdata]);
 
-    
-    
-    
-//    const dispatch = useDispatch();
-
     return (
         <>
             <Box>
-                {/* <Typography>Count:{value}</Typography> */}
-                <Button onClick={handlesave} id="btnSave">Save</Button>
+                <Button onClick={handleRemove} id="btnSave">remove</Button>
                 <Typography sx={{fontSize:'18px',fontWeight:700,padding:'5px 0px 23px 0px'}}>Untitled Canvas</Typography>
-
-                {/* <Box sx={{border:'1px solid #617D5E',height:'50vh', borderRadius:'6px'}}>
-
-                </Box> */}
-
                 <canvas id="myCanvas" style={{border:"1px solid #617D5E", width:'100%', height:'50vh', borderRadius:'6px'}}>
                     Your browser does not support the HTML canvas tag.
                 </canvas>
-              
-
             </Box>
         </>
     );

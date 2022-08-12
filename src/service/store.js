@@ -7,7 +7,8 @@ export const store = configureStore({
     reducer: {
         counter: counterReducer,
         addShape: AddShapeReducer,
-        formData: formDataReducer
+        formData: formDataReducer,
+        
         
     },
     devTools: true,

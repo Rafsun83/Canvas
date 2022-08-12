@@ -14,16 +14,18 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import img from '../../image/Polygon 2.png'
-
+import { Link } from 'react-router-dom';
+import useAuth from './../../Hooks/useAuth';
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Mr. Rafsun', 'My Canvas', 'Logout'];
+
 
 const Navigations = () => {
-
-
+ 
+  const {users,logOut} = useAuth();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-  
+    const settings = [users.displayName, 'My Canvas', <button style={{border:'none', background:'white', textAlign:'left'}} onClick={logOut}>Logout</button>];
+   console.log("user details", users.photoURL)
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
@@ -40,16 +42,12 @@ const Navigations = () => {
     };
 
     return (
-        <AppBar position="static" sx={{background:'#FFFFFF'}}>
+      <AppBar position="static" sx={{background:'#FFFFFF'}}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{display:'flex', justifyContent:'space-between'}}>
-  
-        <Box sx={{display:'flex', alignItems:'center'}}>
-        {/* <AdbIcon sx={{color:'red', display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-      
+        <Toolbar disableGutters sx={{display:'flex', justifyContent:'space-between'}}>  
+        <Box sx={{display:'flex', alignItems:'center'}}>      
         <img src={img} alt="" />
           <Typography
-            // variant="h6"
             fontSize="28px"
             noWrap
             component="a"
@@ -57,10 +55,8 @@ const Navigations = () => {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              
+              fontFamily: 'monospace',             
               fontWeight: 800,
-            //   letterSpacing: '.3rem',
               color: '#383838',
               textDecoration: 'none',
             }}
@@ -126,10 +122,14 @@ const Navigations = () => {
             JoulesLabs Canvas
           </Typography>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+          <Box sx={{ flexGrow: 0 ,display:'flex', alignItems:'center',gap:'10px'}}>
+            {
+              users?.email ? <>
+              <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {
+                  users?.email && <Avatar alt="Remy Sharp" src={users.photoURL} />
+                }
               </IconButton>
             </Tooltip>
             <Menu
@@ -154,6 +154,9 @@ const Navigations = () => {
                 </MenuItem>
               ))}
             </Menu>
+              </>:
+              <Link to="/signup" style={{textDecoration:'auto', fontWeight:700}} >SignUp</Link>              
+            }           
           </Box>
         </Toolbar>
       </Container>

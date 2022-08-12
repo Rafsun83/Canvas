@@ -5,12 +5,11 @@ import { Dropdown } from 'react-bootstrap';
 import Typography from '@mui/material/Typography';
 import { useSelector, useDispatch } from 'react-redux';
 import { getformdata } from '../../service/slice/formData';
+import { handlePng } from '../Canvas/Canvas';
 
 const Properties = () => {
-    const data = useSelector((state) =>state.addShape.shape)
-   
+    const data = useSelector((state) =>state.addShape.shape)   
     const dispatch = useDispatch()
-   
     const [width, setWidth] = useState('')
     const [height, setHeight] = useState('')
     const [xaxis, setXaxis] = useState('')
@@ -19,11 +18,12 @@ const Properties = () => {
 
     const [radius, setRadius] = useState('')
     const [start, setStart] = useState('')
-    const [end, setEnd] = useState('')
-
-    
+    const [end, setEnd] = useState('')   
 //    console.log("Shapename",ShapeName)
-   
+
+    const handaleSave = () =>{
+        handlePng()
+    }   
     const handlesubmit = (e) =>{
         e.preventDefault()
         const properties ={
@@ -57,12 +57,8 @@ const Properties = () => {
         setColor('')
         setRadius('')
         setStart('')
-        setEnd('')
-        
-                
+        setEnd('')                
     }
-
-
 
     return (
         <>
@@ -78,8 +74,8 @@ const Properties = () => {
                 </Dropdown.Toggle>
 
                     <Dropdown.Menu style={{width:'100%', background:'#C4C4C4', color:'#FFFFFF'}}>
-                        <Dropdown.Item href="#/action-1">PNG</Dropdown.Item>
-                        <Dropdown.Item href="#/action-1">SVG</Dropdown.Item>
+                        <Dropdown.Item >PNG</Dropdown.Item>
+                        <Dropdown.Item >SVG</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                     </>:
@@ -91,7 +87,7 @@ const Properties = () => {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu style={{width:'100%', background:'#C4C4C4', color:'#FFFFFF'}}>
-                            <Dropdown.Item href="#/action-1">PNG</Dropdown.Item>
+                            <Dropdown.Item onClick={handaleSave}>PNG</Dropdown.Item>
                             <Dropdown.Item href="#/action-1">SVG</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -129,19 +125,13 @@ const Properties = () => {
                         
                           
                     }
-                                
-
-
                     <input className='InputField' type="number" name="xaxis" id="xaxis" placeholder='X Axis' value={xaxis} onChange={(e) => setXaxis(e.target.value)} ></input>
 
                     <input className='InputField' type="number" name="yaxis" id="yaxis" placeholder='Y Axis' value={yaxis} onChange={(e) => setYaxis(e.target.value)} ></input>
 
-                    <input className='InputField' type="text" name="color" id="color" placeholder='color' value={color} onChange={(e) => setColor(e.target.value)} ></input>
-                   
-               
+                    <input className='InputField' type="text" name="color" id="color" placeholder='color' value={color} onChange={(e) => setColor(e.target.value)} ></input>               
             </Box>
-            </form>
-           
+            </form>           
         </>
     );
 };
