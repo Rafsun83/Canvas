@@ -45,8 +45,8 @@ const Navigations = () => {
       <AppBar position="static" sx={{background:'#FFFFFF'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{display:'flex', justifyContent:'space-between'}}>  
-        <Box sx={{display:'flex', alignItems:'center'}}>      
-        <img src={img} alt="" />
+        <Box sx={{display:'flex', alignItems:'center', gap:'5px'}}>      
+        <img src={img} alt="" /> 
           <Typography
             fontSize="28px"
             noWrap

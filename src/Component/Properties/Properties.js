@@ -44,11 +44,23 @@ const Properties = () => {
             color: color
 
         }
+        const properties3 ={
+            shapeName:data,
+            width: width,
+            height:height,                      
+            xaxis: xaxis,
+            yaxis: yaxis,
+            color: color
+
+        }
         if(data==='Rectangle'){
             dispatch(getformdata(properties))
         }
-        else{
+        else if(data==='Circle'){
             dispatch(getformdata(properties2))
+        }
+        else if(data==='Triangle'){
+            dispatch(getformdata(properties3))
         }
         setWidth('')
         setHeight('')
@@ -106,7 +118,10 @@ const Properties = () => {
 
                     {
                         data==='Triangle'? (
-                            <input className='InputField' type="number" name="width" id="width" placeholder="Triangle" value={width} onChange={(e) => setWidth(e.target.value)} ></input>
+                            <>
+                            <input className='InputField' type="number" name="width" id="width" placeholder="Width" value={width} onChange={(e) => setWidth(e.target.value)} ></input>
+                             <input className='InputField' type="number" name="height" id="height" placeholder="Height" value={height} onChange={(e) => setHeight(e.target.value)} ></input>
+                           </>
                         ): data ==='Circle'?(
                         <>
                         <input className='InputField' type="number" name="radius" id="radius" placeholder="radius" value={radius} onChange={(e) => setRadius(e.target.value)} ></input>
@@ -129,7 +144,9 @@ const Properties = () => {
 
                     <input className='InputField' type="number" name="yaxis" id="yaxis" placeholder='Y Axis' value={yaxis} onChange={(e) => setYaxis(e.target.value)} ></input>
 
-                    <input className='InputField' type="text" name="color" id="color" placeholder='color' value={color} onChange={(e) => setColor(e.target.value)} ></input>               
+                    <input className='InputField' type="text" name="color" id="color" placeholder='color' value={color} onChange={(e) => setColor(e.target.value)} >
+                      
+                    </input>               
             </Box>
             </form>           
         </>

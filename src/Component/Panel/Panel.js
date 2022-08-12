@@ -53,9 +53,7 @@ const Panel = () => {
         <Box sx={{background:'#F0F8EF', borderRadius:'6px', marginTop:'20px', height:'50vh'}}>
             <Typography sx={{fontWeight:700, fontSize:'18px', padding:'20px 0px 20px 0px'}}>Shapes</Typography>
             <ListGroup style={{textAlign:'left', gap:'10px'}}>
-             {
-                 users?.email ? <>
-                 {
+            {
                     formdata.map((item,i) => (
                      <ListGroup.Item key={i} style={{display:'flex', gap:'3px'}} disabled>
                       {item.shapeName==='Rectangle'&& <RectangleIcon sx={{color:item.color}}/>}
@@ -66,10 +64,13 @@ const Panel = () => {
                       </ListGroup.Item>
                         
                       ))                   
-                  }
+            }
+             {/* {
+                 users?.email ? <>
+                
                  </> :
                  <ListGroup.Item  disabled>Add a Shape first</ListGroup.Item> 
-             }
+             } */}
                 
             </ListGroup>           
         </Box>
