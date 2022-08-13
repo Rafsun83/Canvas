@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, ListGroupItem } from 'react-bootstrap';
 import  Box  from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ import ChangeHistoryOutlinedIcon from '@mui/icons-material/ChangeHistoryOutlined
 import RectangleIcon from '@mui/icons-material/Rectangle';
 import CircleIcon from '@mui/icons-material/Circle';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import { canvasRemove, deleteformdata, getformdata } from '../../service/slice/formData';
+import { useState } from 'react';
 
 const shape = [ "Rectangle", "Circle", "Triangle"];
 
@@ -20,9 +22,84 @@ const Panel = () => {
     const {users} = useAuth()
     const dispatch = useDispatch()
     const formdata = useSelector((state) =>state.formData.formdata)
-    console.log("form data", formdata)
+    
+    const [width, setWidth] = useState(20)
+    const [height, setHeight] = useState(20)
+    const [recXaxis, setRecXaxis] = useState(30)
+    const [recYaxis, setRecYaxis] = useState(30)
+    const [triXaxis, setTriXaxis] = useState(70)
+    const [triYaxis, setTriYaxis] = useState(30)
+    const [circleXaxis, setCircleXaxis] = useState(100)
+    const [circleYaxis, setCircleYaxis] = useState(30)
+    const [color, setColor] = useState('red')
+
+    const [radius, setRadius] = useState(15)
+    const [start, setStart] = useState(0)
+    const [end, setEnd] = useState(2) 
+    // console.log("hello id", itemid)
+    console.log("count formdata", Object.keys(formdata).length)
+    var arrObjectLength = Object.keys(formdata).length;
+
+
+
     const handleChangeShape = async(item) => {
         await dispatch(AddShape(item))
+        // e.preventDefault()
+        console.log("checkNow",formdata)
+        const properties ={
+            id:Date.now().toString(),
+            shapeName:item,
+            width: width,
+            height:height,           
+            xaxis: arrObjectLength ? recXaxis+(arrObjectLength*10) : recXaxis,
+            yaxis: arrObjectLength ? recYaxis+(arrObjectLength*10) : recYaxis,
+            color: color
+        }
+        const properties2 ={
+            id:Date.now().toString(),
+            shapeName:item,
+            radius: radius,
+            start: start,           
+            end: end,           
+            xaxis: arrObjectLength ? circleXaxis+(arrObjectLength*10) : circleXaxis ,
+            yaxis: arrObjectLength ? circleYaxis+(arrObjectLength*10) : circleYaxis,
+            color: 'blue'
+
+        }
+        const properties3 ={
+            id:Date.now().toString(),
+            shapeName:item,
+            width: width,
+            height:height,                      
+            xaxis: arrObjectLength ? triXaxis+(arrObjectLength*10) : triXaxis,
+            yaxis: arrObjectLength ? triYaxis+(arrObjectLength*10) : triYaxis,
+            color: 'green'
+
+        }
+        if(item==='Rectangle'){
+            dispatch(getformdata(properties))
+        }
+        else if(item==='Circle'){
+            dispatch(getformdata(properties2))
+        }
+        else if(item==='Triangle'){
+            dispatch(getformdata(properties3))
+        }
+        // setWidth('')
+        // setHeight('')
+        // setXaxis('')
+        // setYaxis('')
+        // setColor('')
+        // setRadius('')
+        // setStart('')
+        // setEnd('')  
+    }
+    const handleDelete = async(item) => {
+
+        await dispatch(canvasRemove(item))
+       await dispatch(deleteformdata(item.id))
+    //    await dispatch(canvasRemove())
+        // console.log("helloid: ", item)
     }   
     return (
         <>
@@ -52,27 +129,24 @@ const Panel = () => {
 
         <Box sx={{background:'#F0F8EF', borderRadius:'6px', marginTop:'20px', height:'50vh'}}>
             <Typography sx={{fontWeight:700, fontSize:'18px', padding:'20px 0px 20px 0px'}}>Shapes</Typography>
-            <ListGroup style={{textAlign:'left', gap:'10px'}}>
-            {
-                    formdata.map((item,i) => (
-                     <ListGroup.Item key={i} style={{display:'flex', gap:'3px'}} disabled>
-                      {item.shapeName==='Rectangle'&& <RectangleIcon sx={{color:item.color}}/>}
-                      {item.shapeName==='Circle'&& <CircleIcon sx={{color:item.color}}/>}
-                      {item.shapeName==='Triangle'&& <ReportProblemIcon sx={{color:item.color}}/>}
-                      
-                      {item.shapeName}
-                      </ListGroup.Item>
-                        
-                      ))                   
+
+            { formdata.map((item) => (
+                 <ListGroup key={item.id}  style={{display:'flex',textAlign:'left', gap:'5px'}}>         
+                          <ListGroup.Item style={{display:'flex', gap:'3px', marginTop:'5px'}} disabled>
+                           {item.shapeName==='Rectangle'&& <RectangleIcon sx={{color:item.color}}/>}
+                           {item.shapeName==='Circle'&& <CircleIcon sx={{color:item.color}}/>}
+                           {item.shapeName==='Triangle'&& <ReportProblemIcon sx={{color:item.color}}
+                           />}
+                           {item.shapeName}
+                                           
+                           </ListGroup.Item>
+                           <button style={{border:'1px solid gray', borderRadius:'5px'}} onClick={() => handleDelete(item)} >Remove {item.shapeName}</button>
+                          
+                 </ListGroup> 
+            ))
+                    
             }
-             {/* {
-                 users?.email ? <>
-                
-                 </> :
-                 <ListGroup.Item  disabled>Add a Shape first</ListGroup.Item> 
-             } */}
-                
-            </ListGroup>           
+                 
         </Box>
         </>
     );

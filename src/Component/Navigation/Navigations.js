@@ -25,7 +25,6 @@ const Navigations = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const settings = [users.displayName, 'My Canvas', <button style={{border:'none', background:'white', textAlign:'left'}} onClick={logOut}>Logout</button>];
-   console.log("user details", users.photoURL)
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };

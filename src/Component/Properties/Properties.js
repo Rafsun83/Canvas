@@ -6,9 +6,12 @@ import Typography from '@mui/material/Typography';
 import { useSelector, useDispatch } from 'react-redux';
 import { getformdata } from '../../service/slice/formData';
 import { handlePng } from '../Canvas/Canvas';
+import { useEffect } from 'react';
 
 const Properties = () => {
-    const data = useSelector((state) =>state.addShape.shape)   
+    const data = useSelector((state) =>state.addShape.shape)
+    const formdata = useSelector((state) => state.formData.formdata)
+
     const dispatch = useDispatch()
     const [width, setWidth] = useState('')
     const [height, setHeight] = useState('')
@@ -21,12 +24,13 @@ const Properties = () => {
     const [end, setEnd] = useState('')   
 //    console.log("Shapename",ShapeName)
 
-    const handaleSave = () =>{
-        handlePng()
-    }   
+    // const handaleSave = () =>{
+    //     handlePng()
+    // }   
     const handlesubmit = (e) =>{
         e.preventDefault()
         const properties ={
+            id:Date.now().toString(),
             shapeName:data,
             width: width,
             height:height,           
@@ -35,6 +39,7 @@ const Properties = () => {
             color: color
         }
         const properties2 ={
+            id:Date.now().toString(),
             shapeName:data,
             radius: radius,
             start: start,           
@@ -45,6 +50,7 @@ const Properties = () => {
 
         }
         const properties3 ={
+            id:Date.now().toString(),
             shapeName:data,
             width: width,
             height:height,                      
@@ -71,7 +77,10 @@ const Properties = () => {
         setStart('')
         setEnd('')                
     }
-
+    useEffect(() => {
+        localStorage.setItem('items', JSON.stringify(formdata));
+        console.log("items",localStorage.getItem('items'))
+    }, [formdata])
     return (
         <>
         <form id="formvalue" action="" onSubmit={handlesubmit}>
@@ -99,7 +108,7 @@ const Properties = () => {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu style={{width:'100%', background:'#C4C4C4', color:'#FFFFFF'}}>
-                            <Dropdown.Item onClick={handaleSave}>PNG</Dropdown.Item>
+                            <Dropdown.Item onClick={()=>handlePng()}>PNG</Dropdown.Item>
                             <Dropdown.Item href="#/action-1">SVG</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

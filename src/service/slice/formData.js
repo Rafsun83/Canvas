@@ -19,9 +19,7 @@ const initialState = {
     //     color:'green'
     // }
 ],
-    
-   
-    
+canvasRemove: {},   
 }
 
 export const formDataSlice = createSlice({
@@ -32,6 +30,18 @@ export const formDataSlice = createSlice({
             const data = action.payload
             state.formdata.push(data)
         },
+        deleteformdata: (state, action) => {
+           return {
+            ...state,
+            formdata: state.formdata.filter(({id}) => id!==action.payload)
+            };
+        },
+        canvasRemove: (state, action) => {
+            const canvas = action.payload
+            state.canvasRemove = canvas
+
+            console.log("canvas data: ", canvas)
+        }
    
     },
 })
@@ -39,5 +49,5 @@ export const formDataSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { getformdata } = formDataSlice.actions
+export const { getformdata,deleteformdata, canvasRemove } = formDataSlice.actions
 export default formDataSlice.reducer

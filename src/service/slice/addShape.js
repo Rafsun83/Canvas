@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     shape:'',
+    
 }
 
 export const addShapeSlice = createSlice({
@@ -9,7 +10,7 @@ export const addShapeSlice = createSlice({
     initialState,
     reducers: {
         AddShape: (state, action) => {
-            state.shape = action.payload
+            state.shape = action.payload        
         },
    
     },
