@@ -1,5 +1,4 @@
 import React from 'react';
-
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,7 +8,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
@@ -19,8 +17,8 @@ import useAuth from './../../Hooks/useAuth';
 const pages = ['Products', 'Pricing', 'Blog'];
 
 
-const Navigations = () => {
- 
+const Navigations = () => { 
+  //import Auth and others state
   const {users,logOut} = useAuth();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -43,7 +41,8 @@ const Navigations = () => {
     return (
       <AppBar position="static" sx={{background:'#FFFFFF'}}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{display:'flex', justifyContent:'space-between'}}>  
+        <Toolbar disableGutters 
+        sx={{display:'flex', justifyContent:'space-between'}}>  
         <Box sx={{display:'flex', alignItems:'center', gap:'5px'}}>      
         <img src={img} alt="" /> 
           <Typography
@@ -63,8 +62,6 @@ const Navigations = () => {
             JoulesLabs Canvas
           </Typography>
         </Box>
-
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -121,7 +118,8 @@ const Navigations = () => {
             JoulesLabs Canvas
           </Typography>
 
-          <Box sx={{ flexGrow: 0 ,display:'flex', alignItems:'center',gap:'10px'}}>
+          <Box sx={{ flexGrow: 0 ,display:'flex', 
+          alignItems:'center',gap:'10px'}}>
             {
               users?.email ? <>
               <Tooltip title="Open settings">

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import  Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import  Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch} from 'react-redux';
 import { canvasRemove } from '../../service/slice/formData';
-import { $CombinedState } from 'redux';
-
-// import {  deleteformdata, getformdata } from '../../service/slice/formData';
 
 
+//export PNG file download function
  export const  handlePng = () =>{  
     var c = document.getElementById("myCanvas");      
     var image = c.toDataURL("image/png");
@@ -19,41 +16,12 @@ import { $CombinedState } from 'redux';
 }
 
 const Canvas = () => {
+   //import data and set state
     const formdata = useSelector((state) =>state.formData.formdata)
     const canvasdata = useSelector((state) =>state.formData.canvasRemove)
     const dispatch = useDispatch()
     const [check, setCheck] = useState(0)
-    // const shapedata = useSelector((state) =>state.addShape.shapes)
-    // const shape = useSelector((state) =>state.addShape)
-    // console.log("shape data canvas", canvasdata.id)
-    // console.log("shape data ", shape)
-
-    
-
-
-
-
-
-
-
-
-    // let canvas = document.getElementById("myCanvas");
-    // let cont = document.getContext("2d");
-    // canvas.width = window.innerWidth-30;
-    // canvas.height = window.innerHeight-10;
-    // canvas.style.border ="3px solid red";
-
-    // let canvas_width = canvas.width;
-    // let canvas_height = canvas.height;
-
-    // var c = document.getElementById("myCanvas");
-    // let mouse_down = (e) => {
-    //     e.preventDefault()
-    //     console.log(e)
-    // } 
-    // c.onmousedown = mouse_down
-
-
+  //full canvas clear function
 
     //Canvas Remove event 
     // const handleRemove = (e) => {
@@ -62,41 +30,8 @@ const Canvas = () => {
     //     context.clearRect(0, 0, canvas.width, canvas.height);
     
     // }
-
    
-
-    // const drawShape = () => {
-    // const canvas = document.querySelector('#myCanvas');
-
-    // if (!canvas.getContext) {
-    //     return;
-    // }
-
-    // const ctx = canvas.getContext('2d');
-
-    // return (
-    //     formdata.map((item) => {
-    //         if(item.shapName==='Rectangle'){
-    //             // var c = document.getElementById("myCanvas");
-    //             // var ctx = c.getContext("2d");
-    //             ctx.fillStyle = item.color;
-    //             ctx.lineWidth = 2;
-    //             ctx.fillRect(item.xaxis, item.yaxis, item.width, item.height);
-    //         }
-    //     })
-    // )
-
-  
-    // // draw two squares
-    // ctx.fillStyle = '#F9DC5C';
-    // ctx.fillRect(50, 50, 150, 150);
-
-    // ctx.fillStyle = 'rgba(0,0,255,0.5)';
-    // ctx.fillRect(100, 100, 150, 150);
-
-    // // clear the intersection
-    // ctx.clearRect(100, 100, 100, 100);
-    // }
+    // remove canvas image function call
     const removeCanvasData = async () =>{
        await dispatch(canvasRemove())
        setCheck(0)
@@ -115,6 +50,8 @@ const Canvas = () => {
                     ctx.lineWidth = 2;
                     ctx.fillRect(item.xaxis, item.yaxis, item.width, item.height)
                     
+                        //Implement Drag on drop code 
+
                         // var c = document.getElementById("myCanvas");
                         // var ctx = c.getContext("2d");
                         // var BB=c.getBoundingClientRect();
@@ -250,11 +187,10 @@ const Canvas = () => {
                         if(check)
                         {
                             removeCanvasData()
-                        }
-                    
+                        }                   
+                    }                                       
                     }
-                                        
-                    }
+                    //draw cricle on canvas
                     else if(item.shapeName==='Circle'){
                         var b = document.getElementById("myCanvas");               
                         var cty = b.getContext("2d");
@@ -262,6 +198,7 @@ const Canvas = () => {
                         cty.fillStyle = item.color;
                         cty.arc(item.xaxis, item.yaxis, item.radius, item.start, item.end * Math.PI);
                         cty.fill();
+
                         if(canvasdata){
                             var canva = document.getElementById("myCanvas");
                             var conv = canva.getContext('2d');
@@ -270,11 +207,10 @@ const Canvas = () => {
                             if(check)
                             {
                                 removeCanvasData()
-                            }
-                        
-                        }
-                        
+                            }                        
+                        }                        
                     }
+                    //darw Triangle on canvas
                     else if(item.shapeName==='Triangle'){
                         var t = document.getElementById("myCanvas");
                         var context = t.getContext("2d");
@@ -282,7 +218,6 @@ const Canvas = () => {
                         context.moveTo(item.xaxis, item.yaxis);
                         context.lineTo(item.xaxis + item.width / 2, item.yaxis + item.height);
                         context.lineTo(item.xaxis - item.width / 2, item.yaxis + item.height);
-                        // context.closePath();
                         context.fillStyle = item.color;
                         context.fill()  
                         
@@ -294,32 +229,25 @@ const Canvas = () => {
                             if(check)
                             {
                                 removeCanvasData()
-                            }
-                        
+                            }                      
                         }
-                    }  
-                    
-                    
+                    }                     
                 })
-
             }
           </>
         )   
     }
 
+    //draw shape Call
     useEffect(() => {
-        drawShape()
-        
-       
+        drawShape()       
     });
 
     return (
         <>
             <Box>
-               {/* <Button onClick={handlEvent} id="btnSav">move</Button> */}
-                {/* <Button onClick={() => {check && removeCanvasData()}} id="btnSave">remove</Button> */}
                 <Typography sx={{fontSize:'18px',fontWeight:700,padding:'5px 0px 23px 0px'}}>Untitled Canvas</Typography>
-                <canvas id="myCanvas" style={{border:"1px solid #617D5E", width:'100%', height:'50vh', borderRadius:'6px'}}>
+                <canvas id="myCanvas" style={{border:"1px solid #617D5E", width:'100%', height:'55vh', borderRadius:'6px'}}>
                     Your browser does not support the HTML canvas tag.
                 </canvas>
             </Box>

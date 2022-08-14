@@ -30,7 +30,7 @@ const useFirebase = () => {
             }
         })
         return ()=>unSubscribed;
-    }, [])
+    }, [auth])
 
     //User logoOut
     const logOut = () => {

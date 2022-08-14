@@ -12,9 +12,9 @@ import SignIn from './Component/SingUp/SignIn';
 function App() {
   return (
     <div className="App">
-        <AuthProvider>
-        <BrowserRouter>
-         <Navigations/>
+      <AuthProvider>
+      <BrowserRouter>
+        <Navigations/>
             <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/home" element={<Home/>} />

@@ -5,21 +5,18 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from './../../Hooks/useAuth';
 
 const SignUp = () => {
+    // import Auth and Set state
     const {siginWithGoogle} = useAuth();
-
     const location = useLocation();
     const navigate = useNavigate();
     const redirect_uri = location.state?.from || '/'
+    //Redirect page after Login
     const handleSigninWithGoogle = () => {
         siginWithGoogle()
             .then(result => {      
-                navigate(redirect_uri)
-        
+                navigate(redirect_uri)       
             })
     }
-
-
-
 
     return (
         <div className='usersection'>
@@ -28,9 +25,9 @@ const SignUp = () => {
                 display: 'flex',
                 flexWrap: 'wrap',
                 '& > :not(style)': {
-                    m: 1,
-                    width: 500,
-                    height: 480,
+                m: 1,
+                width: 500,
+                height: 480,
                 },
             }}
         >
@@ -47,11 +44,9 @@ const SignUp = () => {
                 <Grid align="center" padding='10px'>
                     <Avatar>
                         <AccountCircleOutlinedIcon />
-
                     </Avatar>
                     <h3>Signup For <span style={{ color: 'rgb(255,103,82)' }}>Canvas</span></h3>
                 </Grid>
-
                 <form >
                     <TextField
                         label='User Name'

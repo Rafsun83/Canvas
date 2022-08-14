@@ -11,9 +11,9 @@ const SignIn = () => {
                     display: 'flex',
                     flexWrap: 'wrap',
                     '& > :not(style)': {
-                        m: 1,
-                        width: 500,
-                        height: 450,
+                    m: 1,
+                    width: 500,
+                    height: 450,
                     },
                 }}
             >
@@ -27,7 +27,6 @@ const SignIn = () => {
                         padding: '2rem'
                     }}
                     elevation={10} >
-
                     <Grid align="center" padding='10px'>
                         <Avatar>
                             <AccountCircleOutlinedIcon />
@@ -59,7 +58,7 @@ const SignIn = () => {
                     <Box>
                         <Typography>
                             Do you have no account? <Link to="/signup">
-                                Sign Up?
+                            Sign Up?
                             </Link>
                         </Typography>
                     </Box>
