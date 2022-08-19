@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     shape:'',
-    createShape: ''
+    createShape: '',
+    shapedata:{}
     
 }
 //create Slice And Reducer
@@ -17,10 +18,14 @@ export const addShapeSlice = createSlice({
         //create shape function
         creteShape: (state, action) => {
             state.createShape = action.payload
+        },
+        shapeData:(state, action) => {
+            state.shapedata=action.payload
         }
+        
    
     },
 })
 // Action creators are generated for each case reducer function
-export const { AddShape,creteShape } = addShapeSlice.actions
+export const { AddShape,creteShape,shapeData } = addShapeSlice.actions
 export default addShapeSlice.reducer

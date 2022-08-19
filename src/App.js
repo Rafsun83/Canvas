@@ -8,7 +8,6 @@ import AuthProvider from './Context/AuthProvider';
 import SignIn from './Component/SingUp/SignIn';
 
 
-
 function App() {
   return (
     <div className="App">

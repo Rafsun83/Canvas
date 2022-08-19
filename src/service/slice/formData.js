@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     formdata:[],
-canvasRemove: {},   
+    canvasRemove: {}
+     
 }
 //create slice and reducer
 export const formDataSlice = createSlice({
@@ -21,16 +22,27 @@ export const formDataSlice = createSlice({
             formdata: state.formdata.filter(({id}) => id!==action.payload)
             };
         },
+        updateFormdata:(state, action) => {
+            const shape = action.payload
+            return{
+                ...state,
+                formdata: state.formdata.map(item => {
+                    return item.id === shape.id ? shape : item;
+                })
+                
+            };
+        },
         //canvas drwn image remove
         canvasRemove: (state, action) => {
             const canvas = action.payload
             state.canvasRemove = canvas
 
-        }
+        },
+      
    
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { getformdata,deleteformdata, canvasRemove } = formDataSlice.actions
+export const { getformdata,deleteformdata, canvasRemove,shapedata,updateFormdata } = formDataSlice.actions
 export default formDataSlice.reducer
